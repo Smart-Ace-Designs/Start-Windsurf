@@ -25,8 +25,6 @@ Add-Type -AssemblyName System.Windows.Forms
 #region Controls
 $FormMain = New-Object -TypeName System.Windows.Forms.Form
 $GroupBoxMain = New-Object -TypeName System.Windows.Forms.GroupBox
-$LabelCurrentProfile = New-Object -TypeName System.Windows.Forms.Label
-$LabelCurrentProfileValue = New-Object -TypeName System.Windows.Forms.Label
 $LabelProfileName = New-Object -TypeName System.Windows.Forms.Label
 $ComboBoxProfileName = New-Object -TypeName System.Windows.Forms.ComboBox
 $LabelProjects = New-Object -TypeName System.Windows.Forms.Label
@@ -41,7 +39,7 @@ $ToolStripStatusLabelMain = New-Object -TypeName System.Windows.Forms.ToolStripS
 $ShowFormMain =
 {
     $FormWidth = 330
-    $FormHeight = 260
+    $FormHeight = 210
 
     $FormMain.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon((Get-Process -Id $PID).Path)
     $FormMain.Text = "WindSurf Launcher"
@@ -59,34 +57,23 @@ $ShowFormMain =
     $GroupBoxMain.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 20),($FormHeight - 80))
     $FormMain.Controls.Add($GroupBoxMain)
 
-    $LabelCurrentProfile.Location = New-Object -TypeName System.Drawing.Point(15,15)
-    $LabelCurrentProfile.AutoSize = $true
-    $LabelCurrentProfile.Text = "Current Profile:"
-    $GroupBoxMain.Controls.Add($LabelCurrentProfile)
-    
-    $LabelCurrentProfileValue.Location = New-Object System.Drawing.Point(95,15)
-    $LabelCurrentProfileValue.AutoSize = $true
-    $LabelCurrentProfileValue.Text = "Scanning..."
-    $LabelCurrentProfileValue.ForeColor = "DarkGreen"
-    $GroupBoxMain.Controls.Add($LabelCurrentProfileValue)
-
-    $LabelProfileName.Location = New-Object -TypeName System.Drawing.Point(15,55)
+    $LabelProfileName.Location = New-Object -TypeName System.Drawing.Point(15,15)
     $LabelProfileName.AutoSize = $true
-    $LabelProfileName.Text = "Profile Name:"
+    $LabelProfileName.Text = "Profile:"
     $GroupBoxMain.Controls.Add($LabelProfileName)
     
-    $ComboBoxProfileName.Location = New-Object -TypeName System.Drawing.Point(15,75)
+    $ComboBoxProfileName.Location = New-Object -TypeName System.Drawing.Point(15,35)
     $ComboBoxProfileName.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 50),20)
     $ComboBoxProfileName.TabIndex = 0
     $ComboBoxProfileName.DropDownStyle = [System.Windows.Forms.ComboBoxStyle]::DropDownList
     $GroupBoxMain.Controls.Add($ComboBoxProfileName)
 
-    $LabelProjects.Location = New-Object -TypeName System.Drawing.Point(15,110)
+    $LabelProjects.Location = New-Object -TypeName System.Drawing.Point(15,70)
     $LabelProjects.AutoSize = $true
     $LabelProjects.Text = "Project:"
     $GroupBoxMain.Controls.Add($LabelProjects)
     
-    $ComboBoxProjects.Location = New-Object -TypeName System.Drawing.Point(15,130)
+    $ComboBoxProjects.Location = New-Object -TypeName System.Drawing.Point(15,90)
     $ComboBoxProjects.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 50),20)
     $ComboBoxProjects.TabIndex = 1
     $ComboBoxProjects.DropDownStyle = [System.Windows.Forms.ComboBoxStyle]::DropDownList
@@ -177,8 +164,6 @@ function Set-Profile
 #region Handlers
 $FormMain_Load =
 {
-    $LabelCurrentProfileValue.Text = $Settings.ActiveProfile
-    
     $ComboBoxProfileName.Items.AddRange($Settings.Profiles)
     $ComboBoxProfileName.SelectedIndex = 0
     
@@ -193,7 +178,7 @@ $FormMain_Load =
 
 $FormMain_Shown =
 {
-    $ToolStripStatusLabelMain.Text = "Ready"
+    $ToolStripStatusLabelMain.Text = "Active profile: $($Settings.ActiveProfile)"
     $StatusStripMain.Update()
     $FormMain.Activate()
 }
