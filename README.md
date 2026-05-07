@@ -6,7 +6,7 @@ This repository contains all files required to build the **Start-Windsurf** Scri
 
 ## Purpose
 
-The **Start-Windsurf** script launches a Windows form that provides a method to start the Windsurf code editor with a custom profile and optional project. By default, Windsurf does not provide multiple-profile functionality similar to that of VSCode. This script works by swaping a custom profile directory, as specified by the user from the form, with the default Windsurf directory prior to launching the Windsurf editor. Optionally, a specific project folder can be opened with the editor. All settings are stored in the `$env:LOCALAPPDATA\SmartAceDesigns\Start-Windsurf\Settings.json` file and can be customized as needed.
+The **Start-Windsurf** script launches a Windows form that provides a method to start the Windsurf code editor with a custom profile and optional project. By default, Windsurf does not provide multiple-profile functionality similar to that of VSCode. This script works by swapping a custom profile directory, as specified by the user from the form, with the default Windsurf directory prior to launching the Windsurf editor. Optionally, a specific project folder can be opened with the editor. All settings are stored in the `$env:LOCALAPPDATA\SmartAceDesigns\Start-Windsurf\Settings.json` file and can be customized as needed.
 
 <img width="334" height="244" alt="Screenshot 2026-05-07 175203" src="https://github.com/user-attachments/assets/10e8e713-322d-4714-9b3f-4d6454010615" />
 
