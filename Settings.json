@@ -1,0 +1,8 @@
+{
+  "ActiveProfile": "default",
+  "Profiles": ["default"],
+  "ExtensionsToDisable": {
+    "default": []
+  },
+  "ProjectsFolder": "C:\\Projects"
+}
