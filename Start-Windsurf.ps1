@@ -153,8 +153,27 @@ function Set-Profile
     $ActiveProfile = $Settings.ActiveProfile
     if ($ActiveProfile -ne $ProfileName)
     {
-        if (Test-Path $WINDSURF_BASE) {Rename-Item $WINDSURF_BASE "$WINDSURF_BASE.$ActiveProfile" -Force}
-        if (Test-Path "$WINDSURF_BASE.$ProfileName") {Rename-Item "$WINDSURF_BASE.$ProfileName" $WINDSURF_BASE -Force}
+        if (Test-Path $WINDSURF_BASE)
+        {
+            try {Rename-Item $WINDSURF_BASE "$WINDSURF_BASE.$ActiveProfile" -Force -ErrorAction Stop}
+            catch {throw}
+        }
+        if (Test-Path "$WINDSURF_BASE.$ProfileName")
+        {
+            try {Rename-Item "$WINDSURF_BASE.$ProfileName" $WINDSURF_BASE -Force -ErrorAction stop}
+            catch
+            {
+                # Roll-back rename to prevent missing Windsurf user directory
+                if (Test-Path "$WINDSURF_BASE.$ActiveProfile") {Rename-Item "$WINDSURF_BASE.$ActiveProfile" $WINDSURF_BASE -Force}
+                throw
+            }
+        }
+        else
+        {
+            # Roll-back rename to prevent missing Windsurf user directory
+            if (Test-Path "$WINDSURF_BASE.$ActiveProfile") {Rename-Item "$WINDSURF_BASE.$ActiveProfile" $WINDSURF_BASE -Force}
+            throw "The target profile directory does not exist.`n`nYou might need to create the profile directory first before using this script."
+        }
         $Settings.ActiveProfile = $ProfileName
         $Settings | ConvertTo-Json | Set-Content $SETTINGS_FILE
     }
