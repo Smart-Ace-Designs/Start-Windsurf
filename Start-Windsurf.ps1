@@ -133,16 +133,6 @@ function Invoke-FormAction
     }
 }
 
-function Get-ExtensionsToDisable
-{
-    param
-    (
-        [Parameter(Mandatory, Position = 0)] [string]$ProfileName
-    )
-    
-    @($Settings.ExtensionsToDisable.$ProfileName)
-}
-
 function Set-Profile
 {
     param
@@ -211,7 +201,7 @@ $ButtonRun_Click =
             {
                 Set-Profile -ProfileName $ComboBoxProfileName.Text
 
-                $ExtensionsToDisable = Get-ExtensionsToDisable -ProfileName $ComboBoxProfileName.Text
+                $ExtensionsToDisable = @($Settings.ExtensionsToDisable.$($ComboBoxProfileName.Text))
                 $DisableFlags = @()
                 foreach ($Extension in $ExtensionsToDisable)
                 {
