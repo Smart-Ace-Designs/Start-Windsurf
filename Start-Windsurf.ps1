@@ -174,7 +174,7 @@ function Set-Profile
 $FormMain_Load =
 {
     $ComboBoxProfileName.Items.AddRange($Settings.Profiles)
-    $ComboBoxProfileName.SelectedIndex = 0
+    $ComboBoxProfileName.SelectedIndex = $ComboBoxProfileName.Items.IndexOf($Settings.ActiveProfile)
     
     $ComboBoxProjects.Items.Add("None")
     if (Test-Path $Settings.ProjectsFolder)
